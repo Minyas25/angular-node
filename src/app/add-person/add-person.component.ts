@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PersonService } from '../person.service';
 import { Person } from '../entities';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-add-person',
@@ -19,10 +20,11 @@ export class AddPersonComponent {
       country:'France'
     }
   }
-  constructor(private router:Router, private personService:PersonService){}
+  constructor(private router:Router, private personService:PersonService, private notificationService:NotificationService){}
 
   handleSubmit() {
     this.personService.add(this.person).subscribe(() => {
+      this.notificationService.notify('Person add success');
       this.router.navigate(['/'])
     });
   }
